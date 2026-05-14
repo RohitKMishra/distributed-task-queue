@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: dtq-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTHRES-DB: distributed-task-queuw
+    ports:
+      - "5432:5432"
+
+  redis: 
+    image: redis:7
+    container_name: dtq-redis
+    restart: unless-stopped
+    ports:
+      - "6380:6379"

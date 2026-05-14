@@ -1,0 +1,19 @@
+# binaries
+bin/
+dist/
+
+# environment
+.env
+
+# logs
+*.log
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+
+# Go
+*.test
+coverage.out
