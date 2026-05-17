@@ -8,7 +8,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-      POSTHRES-DB: distributed-task-queuw
+      POSTGRES_DB: distributed_task_queue
     ports:
       - "5432:5432"
 

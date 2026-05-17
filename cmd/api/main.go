@@ -10,6 +10,10 @@ import (
 	"github.com/RohitKMishra/distributed-task-queue/internal/config"
 	"github.com/RohitKMishra/distributed-task-queue/internal/logger"
 	"github.com/RohitKMishra/distributed-task-queue/internal/storage"
+
+	"github.com/RohitKMishra/distributed-task-queue/internal/api"
+	"github.com/RohitKMishra/distributed-task-queue/internal/queue"
+	"github.com/RohitKMishra/distributed-task-queue/internal/task"
 )
 
 func main(){
@@ -37,8 +41,14 @@ func main(){
 		log.Fatal("Failed to connect to redis", zap.Error(err))
 	}
 
+	taskRepository := task.NewRepository(postgresPool)
+	redisQueue := queue.NewRedisQueue(redisClient)
+
+	taskHandler := api.NewTaskHandler(taskRepository, redisQueue, log)
+
 	router := chi.NewRouter()
 
+	router.Post("/tasks", taskHandler.CreateTask)
 	router.Get("/health", func(w http.ResponseWriter, r *http.Request){
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("OK"))

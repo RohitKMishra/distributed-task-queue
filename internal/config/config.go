@@ -9,7 +9,7 @@ type Config struct {
 func Load() *Config {
 	return &Config{
 		HTTPPort: ":8080",
-		PostgresURL: "postgres://admin:admin@localhost:5432/distributed-task-queue",
+		PostgresURL: "postgres://admin:admin@localhost:5432/distributed_task_queue?sslmode=disable",
 		RedisAddr: "localhost:6380",
 	}
 }
