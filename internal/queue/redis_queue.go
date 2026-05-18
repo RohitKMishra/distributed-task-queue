@@ -24,3 +24,14 @@ func (q *RedisQueue) Enqueue(ctx context.Context, taskID string) error {
 		taskID,
 	).Err()
 }
+
+func (q *RedisQueue) Dequeue(ctx context.Context) (string, error) {
+
+	result, err := q.client.BRPop(ctx, 0, TaskQueueName).Result()
+
+	if err != nil {
+		return "", err
+	}
+
+	return result[1], nil
+}
