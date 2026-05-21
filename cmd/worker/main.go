@@ -43,7 +43,7 @@ func main () {
 	taskRepository := task.NewRepository(postgresPool)
 	redisQueue := queue.NewRedisQueue(redisClient)
 
-	taskWorker := worker.NewWorker(redisQueue, taskRepository, log)
+	taskWorker := worker.NewWorker(redisQueue, taskRepository, log, 3)
 
 	if err := taskWorker.Start(ctx); err != nil {
 		log.Fatal("worker failed", zap.Error(err))
